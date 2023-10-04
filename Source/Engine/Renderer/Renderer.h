@@ -8,6 +8,7 @@
 #include <SDL2-2.28.4/include/SDL.h>
 #include <string>
 
+#include <glad/include/glad/glad.h>
 namespace nc
 {
 	class Renderer : public ISystem
@@ -48,5 +49,7 @@ namespace nc
 
 		SDL_Renderer* m_renderer = nullptr;
 		SDL_Window* m_window = nullptr;
+
+		SDL_GLContext m_context = nullptr;
 	};
 }
