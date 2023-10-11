@@ -1,7 +1,7 @@
 #include "Texture.h"
 #include "Renderer.h"
 #include "Core/Logger.h"
-#define STD_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
 #include <STB/stb_image.h>
 
 namespace nc
@@ -27,6 +27,7 @@ namespace nc
 	bool Texture::Load(const std::string& filename, Renderer& renderer)
 	{
 		int channels = 0;
+		stbi_set_flip_vertically_on_load(true);
 		unsigned char* data = stbi_load(filename.c_str(), &m_size.x, &m_size.y, &channels, 0);
 		if (!data)
 		{
@@ -39,7 +40,7 @@ namespace nc
 
 		GLenum internalFormat = (channels == 4) ? GL_RGBA8 : GL_RGB8;
 		GLenum format = (channels == 4) ? GL_RGBA : GL_RGB;
-		glTexStorage2D(m_target, 0, internalFormat, m_size.x, m_size.y);
+		glTexStorage2D(m_target, 1, internalFormat, m_size.x, m_size.y);
 		glTexSubImage2D(m_target, 0, 0, 0, m_size.x, m_size.y, format, GL_UNSIGNED_BYTE, data);
 
 		stbi_image_free(data);

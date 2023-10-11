@@ -16,6 +16,8 @@ namespace nc
 	private:
 		float m_time = 0;
 		float m_speed = 5;
+		glm::vec2 offset{ 0, 0 };
+		glm::vec2 tiling{ 1, 1 };
 		Transform m_transform;
 		GLuint m_vao = 0;
 		res_t<Program> m_program;
