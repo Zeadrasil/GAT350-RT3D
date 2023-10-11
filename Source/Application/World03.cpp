@@ -119,9 +119,10 @@ namespace nc
         
         glm::mat4 position = glm::translate(glm::mat4({ 1 }), m_transform.position);
         glm::mat4 rotation = glm::rotate(glm::mat4({ 1 }), glm::radians(m_transform.rotation.x), glm::vec3({ 1,0,0 }));
+        glm::mat4 scale = glm::scale(glm::mat4({ 1 }), m_transform.scale);
         rotation *= glm::rotate(glm::mat4({ 1 }), glm::radians(m_transform.rotation.y), glm::vec3({ 0,1,0 }));
         rotation *= glm::rotate(glm::mat4({ 1 }), glm::radians(m_transform.rotation.z), glm::vec3({ 0,0,1 }));
-        glm::mat4 model = position * rotation;
+        glm::mat4 model = position * rotation * scale;
         GLint uniform = glGetUniformLocation(m_program->m_program, "model");
         glUniformMatrix4fv(uniform, 1, GL_FALSE, glm::value_ptr(model));
 
