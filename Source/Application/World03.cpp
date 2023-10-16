@@ -32,7 +32,12 @@ namespace nc
             0.3f, 0.1f, 0.9f,
             0.0f, 0.0f, 0.0f
         };
-
+        m_vertexBuffer = GET_RESOURCE(VertexBuffer, "vb");
+        m_vertexBuffer->CreateVertexBuffer(sizeof(vertexData), 4, vertexData);
+        m_vertexBuffer->SetAttribute(0, 3, 8 * sizeof(GLfloat), 0);                  // position 
+        m_vertexBuffer->SetAttribute(1, 3, 8 * sizeof(GLfloat), 3 * sizeof(float));  // color 
+        m_vertexBuffer->SetAttribute(2, 2, 8 * sizeof(GLfloat), 6 * sizeof(float));  // texcoord
+        /*
         GLuint vbo;
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -53,6 +58,7 @@ namespace nc
         glEnableVertexAttribArray(2);
         glVertexAttribFormat(2, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(float));
         glVertexAttribBinding(2, 0);
+        */
         #else
 
         //vertex data
@@ -147,8 +153,7 @@ namespace nc
         renderer.BeginFrame();
         
         // render
-        glBindVertexArray(m_vao);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        m_vertexBuffer->Draw(GL_TRIANGLE_STRIP);
 
         ENGINE.GetSystem<Gui>()->Draw();
 

@@ -6,6 +6,7 @@
 #include "Shader.h"
 #include "Program.h"
 #include "Gui.h"
+#include "VertexBuffer.h"
 
 #include <SDL2-2.28.4/include/SDL.h>
 #include <string>

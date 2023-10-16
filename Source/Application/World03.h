@@ -19,7 +19,8 @@ namespace nc
 		glm::vec2 offset{ 0, 0 };
 		glm::vec2 tiling{ 1, 1 };
 		Transform m_transform;
-		GLuint m_vao = 0;
+		//GLuint m_vao = 0;
+		res_t<VertexBuffer> m_vertexBuffer;
 		res_t<Program> m_program;
 		res_t<Texture> m_texture;
 	};
