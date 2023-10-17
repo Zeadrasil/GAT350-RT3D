@@ -18,7 +18,7 @@ namespace nc
 		bool Load(const std::string& filename, class Renderer& renderer);
 		const glm::ivec2& GetSize() const { return m_size; };
 
-		void setActive(GLuint unit) { glActiveTexture(unit); };
+		void SetActive(GLuint unit) { glActiveTexture(unit); };
 		void Bind() { glBindTexture(m_target, m_texture); };
 		friend class Renderer;
 

@@ -21,6 +21,7 @@ namespace nc
 		Transform m_transform;
 		//GLuint m_vao = 0;
 		res_t<VertexBuffer> m_vertexBuffer;
+		res_t<Material> m_material;
 		res_t<Program> m_program;
 		res_t<Texture> m_texture;
 	};
