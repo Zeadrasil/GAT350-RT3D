@@ -5,6 +5,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{4b74896c-def7-49f0-a49c-7e6c7644864c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scenes">
+      <UniqueIdentifier>{ce1fc012-64c4-43e9-9055-c19853a3c937}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -19,6 +25,12 @@
     <ClCompile Include="World03.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="World04.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="World05.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
@@ -30,5 +42,64 @@
     <ClInclude Include="World03.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="World04.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World05.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Build\Assets\shaders\unlit_color.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_color.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_color.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_multi_texture.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_multi_texture.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_texture.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_texture.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_texture.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_texture_Phong.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_texture_Phong.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_texture_Phong.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_texture_Gouraund.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_texture_Gouraund.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_texture_Gouraund.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\multi_lit_texture_Phong.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\multi_lit_texture_Phong.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\scenes\scene.json">
+      <Filter>scenes</Filter>
+    </None>
   </ItemGroup>
 </Project>

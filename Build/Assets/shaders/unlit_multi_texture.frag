@@ -15,7 +15,7 @@ void main()
 {
 	vec4 texColor1 = texture(tex1, (texCoord * tiling) + offset).rgba;
 	vec4 texColor2 = texture(tex2, (texCoord * tiling) + offset).rgba;
-	vec4 texColor = mix(texColor1, texColor2, 1);
+	vec4 texColor = mix(texColor1, texColor2, 0.1);
 	//if(texColor.a < 0.8) discard;
 	ocolor = texColor * color;
 }

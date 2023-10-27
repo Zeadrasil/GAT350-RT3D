@@ -1,6 +1,6 @@
 #pragma once
 #include "Framework/World.h"
-#include "Core/Math/Vector2.h"
+#include "Core/Math/Transform.h"
 #include "Renderer/Renderer.h"
 
 namespace nc
