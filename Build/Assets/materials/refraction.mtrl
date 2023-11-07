@@ -1,0 +1,12 @@
+{
+  "program": "shaders/skyboxRefraction.prog",
+  "cubemap": "space_cubemap_2",
+  "cubemaps": [
+    "textures/space_cubemap_2/posx.jpg",
+    "textures/space_cubemap_2/negx.jpg",
+    "textures/space_cubemap_2/posy.jpg",
+    "textures/space_cubemap_2/negy.jpg",
+    "textures/space_cubemap_2/posz.jpg",
+    "textures/space_cubemap_2/negz.jpg"
+  ]
+}

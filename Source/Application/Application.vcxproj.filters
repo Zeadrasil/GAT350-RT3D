@@ -11,6 +11,9 @@
     <Filter Include="scenes">
       <UniqueIdentifier>{ce1fc012-64c4-43e9-9055-c19853a3c937}</UniqueIdentifier>
     </Filter>
+    <Filter Include="materials">
+      <UniqueIdentifier>{0d0d7460-353f-44a7-944a-14e011ac01fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -31,6 +34,9 @@
     <ClCompile Include="World05.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="World055.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
@@ -46,6 +52,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="World05.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World055.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -100,6 +109,78 @@
     </None>
     <None Include="..\..\Build\Assets\scenes\scene.json">
       <Filter>scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\multi_lit_Phong.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\multi_lit_Phong.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_Phong.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_phong_normal.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_phong_normal.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_phong_normal.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\quad.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\squirrel.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\grid.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\phong.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\shrek.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_phong_normal_Cube.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\skybox.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\lit_phong_normal_Cube.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\skybox.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\scenes\skyscene.json">
+      <Filter>scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\skyboxReflection.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\skyboxReflection.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\skyboxRefraction.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\skyboxRefraction.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\refraction.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\cubemap.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\skybox.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\reflection.mtrl">
+      <Filter>materials</Filter>
     </None>
   </ItemGroup>
 </Project>

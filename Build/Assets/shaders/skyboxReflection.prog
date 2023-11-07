@@ -1,0 +1,4 @@
+{
+	"vertexShader": "shaders/skyboxReflection.vert",
+	"fragmentShader": "shaders/lit_phong_normal_Cube.frag"
+}

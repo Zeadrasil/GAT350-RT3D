@@ -21,9 +21,8 @@ namespace nc
         m_texture->SetActive(GL_TEXTURE0);
         */
 
-        auto material = GET_RESOURCE(Material, "materials/squirrel.mtrl");
+        material = GET_RESOURCE(Material, "materials/squirrel.mtrl");
         m_model = std::make_shared<Model>();
-        m_model->SetMaterial(material);
         m_model->Load("models/squirrel.glb", glm::vec3{0}, glm::vec3{90, 0, 0});
 
         for (int i = 0; i < 3; i++)
@@ -164,7 +163,6 @@ namespace nc
         m_transform.rotation.y += (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_DOWN) ? m_speed * -dt : ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_UP) ? m_speed * dt : 0);
         m_transform.rotation.z += (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_PAGEUP) ? m_speed * -dt : ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_PAGEDOWN) ? m_speed * dt : 0);
         m_time += dt;
-        auto material = m_model->GetMaterial();
         material->ProcessGUI();
         material->Bind();
         //m_material->ProcessGUI();

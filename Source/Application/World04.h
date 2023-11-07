@@ -47,6 +47,6 @@ namespace nc
 		glm::vec3 ambient{ 0.2f, 0.2f, 0.2f };
 		std::vector<light_t> m_lights;
 		int selected = 0;
-
+		res_t<Material> material;
 	};
 }

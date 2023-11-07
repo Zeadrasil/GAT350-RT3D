@@ -63,6 +63,18 @@ namespace nc
             actor->AddComponent(std::move(lightComponent));
             m_scene->Add(std::move(actor));
         }
+        {
+            auto actor = CREATE_CLASS(Actor);
+            actor->name = "camera1";
+            actor->transform.position = glm::vec3{ 0, 0, 3 };
+            actor->transform.rotation = glm::vec3{ 0, 180, 0 };
+
+            auto cameraComponent = CREATE_CLASS(CameraComponent);
+            cameraComponent->SetPerspective(70.0f, ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.1f, 100.0f);
+            actor->AddComponent(std::move(cameraComponent));
+
+            m_scene->Add(std::move(actor));
+        }
         return true;
     }
 
@@ -82,16 +94,16 @@ namespace nc
         actor->transform.position.y += (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? m_speed * -dt : ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? m_speed * dt : 0) / 2;
         actor->transform.position.z += (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_Q) ? m_speed * -dt : ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_E) ? m_speed * dt : 0) / 2;
         m_time += dt;
-        auto material = actor->GetComponent<ModelComponent>()->m_model->GetMaterial();
-        material->ProcessGUI();
-        material->Bind();
-        material->GetProgram()->SetUniform("model", actor->transform.GetMatrix());
-
+        //auto material = actor->GetComponent<ModelComponent>()->m_model->GetMaterial();
+        //material->ProcessGUI();
+        //material->Bind();
+        //material->GetProgram()->SetUniform("model", actor->transform.GetMatrix());
+        /*
         glm::mat4 view = glm::lookAt(glm::vec3({ 0, 0, 3 }), glm::vec3({ 0, 0, 0 }), glm::vec3({ 0, 1, 0 }));
         material->GetProgram()->SetUniform("view", view);
         glm::mat4 projection = glm::perspective(glm::radians(90.0f), float(ENGINE.GetSystem<Renderer>()->GetWidth()) / ENGINE.GetSystem<Renderer>()->GetHeight(), 0.01f, 1000.0f);
         
-        material->GetProgram()->SetUniform("projection", projection);
+        material->GetProgram()->SetUniform("projection", projection);*/
         ENGINE.GetSystem<Gui>()->EndFrame();
     }
 
