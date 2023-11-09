@@ -1,0 +1,142 @@
+{
+	"actors": [
+		{
+			"type": "Actor",
+			"name": "skybox",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 100, 100, 100 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/cube.obj",
+					"materialName": "materials/skybox.mtrl",
+					"enableDepth": false,
+					"cullFace": "front"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "actor1",
+			"persistent": true,
+			"active": false,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/ogre.obj",
+					"materialName": "materials/refraction.mtrl",
+					"enableDepth": true
+				},
+				{
+					"type": "RotateComponent",
+					"rotation": [ 10, 0, 0 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "actor2",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/cube.obj",
+					"materialName": "materials/buff_shrek.mtrl",
+					"enableDepth": true
+				},
+				{
+					"type": "RotateComponent",
+					"rotation": [ 10, 0, 0 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "light1",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 3, 3, 3 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "LightComponent",
+					"lightType": "Point",
+					"color": [ 255, 255, 255 ],
+					"intensity": 1,
+					"range": 50
+				},
+				{
+					"type": "RotateComponent",
+					"rotation": [ 10, 0, 0 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "camera",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 180, 0 ]
+			},
+			"components": [
+				{
+					"type": "CameraComponent",
+					"fov": 70,
+					"aspect": 1.777777778,
+					"near": 0.1,
+					"far": 100
+				},
+				{
+					"type": "CameraController",
+					"speed": 5,
+					"sensitivity": 0.5
+				},
+				{
+					"type": "RotateComponent",
+					"rotation": [ 10, 0, 0 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "actor3",
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/billboard.mtrl",
+					"enableDepth": true
+				}
+			]
+		}
+	]
+}

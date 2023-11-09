@@ -52,10 +52,20 @@ namespace nc
 		m_owner->transform.position += direction * (speed * dt);
 	}
 
+	void CameraController::ProcessGui()
+	{
+		ImGui::DragFloat("Sensitivity", &sensitivity, 0.01f);
+		ImGui::DragFloat("Speed", &speed, 0.5f);
+		ImGui::DragFloat("Yaw", &yaw);
+		ImGui::DragFloat("Pitch", &pitch);
+	}
+
 	void CameraController::Read(const json_t& value)
 	{
 		READ_DATA(value, speed);
 		READ_DATA(value, sensitivity);
+		READ_DATA(value, yaw);
+		READ_DATA(value, pitch);
 	}
 
 }

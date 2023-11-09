@@ -1,0 +1,11 @@
+{
+  "program": "shaders/lit_phong_normal.prog",
+  "albedoTexture": "textures/color_grid.png",
+  "diffuse": [
+    1,
+    1,
+    1
+  ],
+  "tiling": [ 1, 1 ],
+  "offset": [ 0, 0 ]
+}

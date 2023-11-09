@@ -37,6 +37,12 @@
     <ClCompile Include="World055.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="World0575.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="World06.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
@@ -55,6 +61,12 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="World055.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World0575.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World06.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -181,6 +193,48 @@
     </None>
     <None Include="..\..\Build\Assets\materials\reflection.mtrl">
       <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_sprite.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_sprite.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\sprite.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\scenes\spritescene.json">
+      <Filter>scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_sprite.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_billboard.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_billboard.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\unlit_billboard.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\billboard.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\buff_shrek.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\scenes\buffscene.json">
+      <Filter>scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\post_process.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\post_process.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\post_process.frag">
+      <Filter>shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

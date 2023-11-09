@@ -43,25 +43,7 @@
 			"type": "Actor",
 			"name": "actor2",
 			"persistent": true,
-			"active": false,
-			"transform": {
-				"position": [ 0, 0, 0 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 0, 0 ]
-			},
-			"components": [
-				{
-					"type": "ModelComponent",
-					"modelName": "models/ogre.obj",
-					"materialName": "materials/reflection.mtrl",
-					"enableDepth": true
-				}
-			]
-		},
-		{
-			"type": "Actor",
-			"name": "actor3",
-			"persistent": true,
+			"active":  true,
 			"transform": {
 				"position": [ 0, 0, 0 ],
 				"scale": [ 1, 1, 1 ],
@@ -72,6 +54,25 @@
 					"type": "ModelComponent",
 					"modelName": "models/ogre.obj",
 					"materialName": "materials/shrek.mtrl",
+					"enableDepth": true
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "actor3",
+			"persistent": true,
+			"prototype":  true,
+			"transform": {
+				"position": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/billboard.mtrl",
 					"enableDepth": true
 				}
 			]

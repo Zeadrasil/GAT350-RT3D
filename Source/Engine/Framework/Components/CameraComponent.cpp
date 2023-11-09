@@ -75,5 +75,6 @@ namespace nc
 		READ_DATA(value, aspect);
 		READ_DATA(value, near);
 		READ_DATA(value, far);
+		projection = glm::perspective(glm::radians(fov), aspect, near, far);
 	}
 }
