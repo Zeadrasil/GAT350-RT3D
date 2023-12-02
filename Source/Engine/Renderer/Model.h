@@ -23,9 +23,10 @@ namespace nc
 
 	public:
 		bool Create(std::string filename, ...) override;
-		bool Load(const std::string& filename, const glm::vec3& translate = glm::vec3(0), const glm::vec3 rotation = glm::vec3(0), const::glm::vec3 scale = glm::vec3(1));
+		bool Load(const std::string& filename, const glm::vec3& translate = glm::vec3(0), const glm::vec3& rotation = glm::vec3(0), const::glm::vec3 scale = glm::vec3(1));
 		void Draw(GLenum primitive = GL_TRIANGLES);
 
+		ResourceType type = MODEL;
 
 	private:
 		void ProcessNode(aiNode* node, const aiScene* scene, const glm::mat4& transform);

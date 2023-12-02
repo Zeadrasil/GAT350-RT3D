@@ -15,7 +15,7 @@ namespace nc
 	void RotateComponent::Update(float dt)
 	{
 		m_owner->transform.rotation *= EulerToQuaternion(euler);
-		m_owner->transform.euler = QuaternionToEuler(m_owner->transform.rotation);
+		m_owner->transform.euler += euler;
 	}
 
 }

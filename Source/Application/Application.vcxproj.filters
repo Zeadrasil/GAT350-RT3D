@@ -43,6 +43,9 @@
     <ClCompile Include="World06.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="World07.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
@@ -67,6 +70,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="World06.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World07.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -235,6 +241,39 @@
     </None>
     <None Include="..\..\Build\Assets\shaders\post_process.frag">
       <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\post_process.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\scenes\shadowscene.json">
+      <Filter>scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\scenes\scene_framebuffer.json">
+      <Filter>scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\shadow_depth.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\shadow_depth.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\shaders\shadow_depth.prog">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\ui_light.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Fantasy\fantasy.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\basic.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\materials\ui_camera.mtrl">
+      <Filter>materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\scenes\scene_editor.json">
+      <Filter>scenes</Filter>
     </None>
   </ItemGroup>
 </Project>

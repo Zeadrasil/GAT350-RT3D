@@ -7,12 +7,14 @@ in layout(location = 2) vec3 normal;
 out layout(location = 0) vec3 oposition;
 out layout(location = 1) vec3 onormal;
 out layout(location = 2) vec2 otexCoord;
+out layout(location = 3) vec4 oshadowCoord;
 
 uniform mat4 model;
 uniform mat4 projection;
 uniform mat4 view;
 
 
+uniform mat4 shadowVP;
 
 uniform struct Material
 {
@@ -31,6 +33,9 @@ void main()
 	otexCoord = texCoord;
 	oposition = vec3(modelView * vec4(position, 1));
 	onormal = normalize(mat3(modelView) * normal);
+	
+	oshadowCoord = shadowVP * model * vec4(position, 1);
+
 
 	mat4 mvp = projection * modelView;
 	gl_Position = mvp * vec4(position, 1);

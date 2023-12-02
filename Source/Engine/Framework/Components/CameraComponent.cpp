@@ -41,7 +41,14 @@ namespace nc
 
 		// set projection matrix with glm::perspective function (fov is in degrees, convert to radians)
 		// projection = glm::perspective(<parameters>); degrees, convert to radians)
-		projection = glm::perspective(glm::radians(fov), aspect, near, far);
+		if (projectionType == PERSPECTIVE)
+		{
+			projection = glm::perspective(glm::radians(fov), aspect, near, far);
+		}
+		else
+		{
+			projection = glm::ortho(-size * 0.5f * aspect, size * 0.5f * aspect, -size * 0.5f, size * 0.5f, near, far);
+		}
 	}
 
 	void CameraComponent::SetLookAt(const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up)
@@ -61,7 +68,8 @@ namespace nc
 
 	void CameraComponent::ProcessGui()
 	{
-		// use ImGui::DragFloat to set fov, aspect, near and far values (use speed of 0.1f)
+		const char* types[] = { "Perspective", "Orthographic" };
+		ImGui::Combo("Projection", (int*)(&projectionType), types, 2);
 		ImGui::DragFloat("FOV", &fov, 0.1f);
 		ImGui::DragFloat("Aspect Ratio", &aspect, 0.1f);
 		ImGui::DragFloat("Near Cutoff", &near, 0.1f);
@@ -75,6 +83,20 @@ namespace nc
 		READ_DATA(value, aspect);
 		READ_DATA(value, near);
 		READ_DATA(value, far);
-		projection = glm::perspective(glm::radians(fov), aspect, near, far);
+		READ_DATA(value, size);
+		std::string projectionTypeName;
+		READ_NAME_DATA(value, "projectionType", projectionTypeName);
+		if (IsEqualIgnoreCase("Orthographic", projectionTypeName))
+		{
+			projectionType = ORTHOGRAPHIC;
+		}
+		if (projectionType == PERSPECTIVE)
+		{
+			projection = glm::perspective(glm::radians(fov), aspect, near, far);
+		}
+		else
+		{
+			projection = glm::ortho(-size * 0.5f * aspect, size * 0.5f * aspect, -size * 0.5f, size * 0.5f, near, far);
+		}
 	}
 }

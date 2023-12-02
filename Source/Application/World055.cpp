@@ -100,7 +100,7 @@ namespace nc
         actor->transform.position.z += (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_Q) ? m_speed * -dt : ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_E) ? m_speed * dt : 0) / 2;
         m_time += dt;
         auto material = actor->GetComponent<ModelComponent>()->material;
-        material->ProcessGUI();
+        material->ProcessGui();
         material->Bind();
         material->GetProgram()->SetUniform("model", actor->transform.GetMatrix());
 

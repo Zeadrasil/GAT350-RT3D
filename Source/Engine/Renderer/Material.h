@@ -26,7 +26,8 @@ namespace nc
 		void Bind();
 
 		res_t<Program> GetProgram() { return m_program; }
-		void ProcessGUI();
+		void ProcessGui();
+		ResourceType type = MATERIAL;
 	public:
 		glm::vec3 albedo{ 1 };
 		glm::vec3 specular{ 1 };
@@ -41,6 +42,7 @@ namespace nc
 		res_t<Texture> normalTexture;
 		res_t<Texture> emissiveTexture;
 		res_t<Texture> cubemapTexture;
+		res_t<Texture> depthTexture;
 		uint32_t params = 0;
 
 	private:

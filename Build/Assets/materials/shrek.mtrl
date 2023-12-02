@@ -1,22 +1,12 @@
 {
-  "program": "shaders/lit_phong_normal.prog",
-  "albedoTexture": "textures/ogre_diffuse.bmp",
+  "program": "shaders/multi_lit_Phong.prog",
+  "albedoTexture": "textures/color_grid.png",
   "emissiveTexture": "textures/ogre_emissive.bmp",
   "normalTexture": "textures/ogre_normal.bmp",
-  "diffuse": [
-    1,
-    1,
-    1
-  ],
   "specular": [
     0.1,
     0.1,
     0.1
-  ],
-  "emissive": [
-    0,
-    0,
-    0
   ],
   "shininess": 2,
   "tiling": [ 1, 1 ],

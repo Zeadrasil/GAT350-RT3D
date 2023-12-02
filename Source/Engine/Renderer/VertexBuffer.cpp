@@ -68,7 +68,7 @@ namespace nc
 		// size is number of elements (position = 3 (xyz), color = 3 (rgb), texcoord = 2 (uv))
 
 		// bind vertex buffer
-		glBindVertexBuffer(0, m_vbo, 0, stride);
+		glBindVertexBuffer(attribindex, m_vbo, offset, stride);
 		// enable vertex attribute (position, color, ...)
 		glEnableVertexAttribArray(attribindex);
 		// set vertex attribute format

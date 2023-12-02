@@ -19,6 +19,7 @@ namespace nc
 		void CreateIndexBuffer(GLenum indexType, GLsizei count, GLvoid* data);
 
 		void SetAttribute(int index, GLint size, GLsizei stride, GLuint offset);
+		ResourceType type = VERTEX_BUFFER;
 
 	protected:
 		GLuint m_vao;			// vertex array object

@@ -11,6 +11,7 @@ namespace nc
 		~Shader();
 
 		virtual bool Create(std::string filename, ...) override;
+		ResourceType type = SHADER;
 
 	public:
 		GLuint m_shader = 0;

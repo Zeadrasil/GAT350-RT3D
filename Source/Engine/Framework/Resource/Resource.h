@@ -1,18 +1,31 @@
 #pragma once
 #include <string>
 #include <memory>
+#include "Framework/Object.h"
 
 namespace nc
 {
 	// Resource - Base class for all resources used in the engine (Texture, Models, Audio Clips, ...)
-	class Resource
+	class Resource : public Object
 	{
 	public:
+		enum ResourceType
+		{
+			BASE,
+			TEXTURE,
+			SHADER,
+			MATERIAL,
+			MODEL,
+			FONT,
+			PROGRAM,
+			VERTEX_BUFFER
+		};
 		virtual ~Resource() = default;
-
+		
 		// filename is not a const reference because variadic arguments (...) need an object
 		// not a reference as the parameter before them
 		virtual bool Create(std::string filename, ...) = 0;
+		ResourceType type = BASE;
 	};
 
 	// resources are stored as shared pointers so they can be shared among different objects

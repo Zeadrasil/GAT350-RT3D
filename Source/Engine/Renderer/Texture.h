@@ -22,8 +22,12 @@ namespace nc
 		void Bind() { glBindTexture(m_target, m_texture); };
 		bool CreateTexture(int width, int height);
 		bool CreateDepthTexture(int width, int height);
+
+		void ProcessGui() override;
+
 		friend class Renderer;
 		friend class Framebuffer;
+		ResourceType type = TEXTURE;
 	protected:
 		GLuint m_texture = 0;
 		GLenum m_target = GL_TEXTURE_2D;

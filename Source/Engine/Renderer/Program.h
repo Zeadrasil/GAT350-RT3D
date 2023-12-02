@@ -34,6 +34,7 @@ namespace nc
 		void SetUniform(const std::string& name, const glm::mat3& value);
 		void SetUniform(const std::string& name, const glm::mat4& value);
 
+		ResourceType type = PROGRAM;
 	private:
 		GLint GetUniform(const std::string& name);
 

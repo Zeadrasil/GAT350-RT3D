@@ -122,7 +122,7 @@ namespace nc
         m_transform.position.z += (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_Q) ? m_speed * -dt : ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_E) ? m_speed * dt : 0) / 2;
         m_time += dt;
 
-        m_material->ProcessGUI();
+        m_material->ProcessGui();
         m_material->Bind();
         //m_program->SetUniform("offset", offset * m_time);
         //m_program->SetUniform("tiling", tiling);

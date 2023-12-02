@@ -94,7 +94,10 @@ namespace nc
 
 	void Program::Use()
 	{
-		if (m_program) glUseProgram(m_program);
+		if (m_program)
+		{
+			glUseProgram(m_program);
+		}
 	}
 
 	void Program::SetUniform(const std::string& name, float value)

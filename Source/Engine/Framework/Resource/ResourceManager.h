@@ -7,8 +7,10 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "Renderer/Renderer.h"
 
 #define GET_RESOURCE(type, filename, ...) nc::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
+#define GET_RESOURCES(type) nc::ResourceManager::Instance().GetAllOfType<type>();
 #define ADD_RESOURCE(name, resource, ...) nc::ResourceManager::Instance().Add(name, resource)
 
 namespace nc
@@ -40,8 +42,9 @@ namespace nc
 			WARNING_LOG("Resource already exists: " << lName);
 			return false;
 		}
-
+		resource->name = lName;
 		m_resources[lName] = resource;
+
 
 		return true;
 	}
@@ -69,6 +72,7 @@ namespace nc
 		}
 
 		// add resource to resource map, return resource
+		resource->name = lFilename;
 		m_resources[lFilename] = resource;
 		return resource;
 	}

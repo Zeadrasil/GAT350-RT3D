@@ -113,4 +113,28 @@ namespace nc
 
         return result;;
     }
+
+    template<typename T>
+    T SetBits(T a, T b)
+    {
+        a |= b;
+        return a;
+    }
+    template<typename T>
+    T ClearBits(T a, T b)
+    {
+        a |= ~b;
+        return a;
+    }
+    template<typename T>
+    bool TestBits(T a, T b)
+    {
+        return a & b;
+    }
+    template<typename T>
+    T ToggleBits(T a, T b)
+    {
+        a ^= b;
+        return a;
+    }
 }

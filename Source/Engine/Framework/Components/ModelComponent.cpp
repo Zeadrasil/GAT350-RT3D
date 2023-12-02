@@ -34,11 +34,25 @@ namespace nc
 		m_model->Draw();
 	}
 
+	void ModelComponent::ProcessGui()
+	{
+		(m_model) ? ImGui::Text("Model: %s", m_model->name.c_str()) : ImGui::Text("None");
+		Gui::GetDialogResource<Model>(m_model, "ModelTextureDialog", "Open Model", "Model file (*.obj;*.fbx){.obj,.fbx},.*");
+
+		(material) ? ImGui::Text("Material: %s", material->name.c_str()) : ImGui::Text("None");
+		Gui::GetDialogResource<Material>(material, "MaterialTextureDialog", "Open Material", "Material file (*.mtrl){.mtrl},.*");
+		material->ProcessGui();
+		material->Bind();
+		ImGui::Checkbox("Cast Shadow", &castShadow);
+		ImGui::Checkbox("Enable Depth", &enableDepth);
+	}
+
 	void ModelComponent::Read(const json_t& value)
 	{
 		READ_DATA(value, modelName);
 		READ_DATA(value, materialName);
 		READ_DATA(value, enableDepth);
+		READ_DATA(value, castShadow);
 		std::string cullFaceName;
 		if (READ_NAME_DATA(value, "cullFace", cullFaceName))
 		{

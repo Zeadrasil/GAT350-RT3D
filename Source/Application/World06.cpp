@@ -22,7 +22,7 @@ namespace nc
         */
 
         m_scene = std::make_unique<Scene>();
-        m_scene->Load("scenes/buffscene.json");
+        m_scene->Load("scenes/scene_framebuffer.json");
         m_scene->Initialize();
 
         auto texture = std::make_shared<Texture>();
@@ -32,12 +32,12 @@ namespace nc
         ADD_RESOURCE("fb_texture", texture);
         ADD_RESOURCE("fb", framebuffer);
 
-        auto material = GET_RESOURCE(Material, "materials / buff_shrek.mtrl");
+        auto material = GET_RESOURCE(Material, "materials/post_process.mtrl");
         if (material)
         {
             material->albedoTexture = texture;
         }
-
+        /*
         for(int i = 0; i < 1; i++)
         {
             auto actor = CREATE_CLASS_BASE(Actor, "actor3");
@@ -46,7 +46,7 @@ namespace nc
             actor->transform.scale = glm::vec3(randomf(0.3, 10), randomf(0.3, 10), 1);
             actor->Initialize();
             m_scene->Add(std::move(actor));
-        }
+        }*/
         /*
         {
             auto actor = CREATE_CLASS(Actor);
@@ -125,6 +125,96 @@ namespace nc
             program->SetUniform("ior", m_refraction);
             ImGui::End();
         }
+
+        ImGui::Begin("Post-Process");
+        ImGui::SliderFloat("Blend", &blend, 0, 1);
+        bool effect = params & INVERT_MASK;
+        if (ImGui::Checkbox("Invert", &effect))
+        {
+            if (effect)
+            {
+                params |= INVERT_MASK;
+            }
+            else
+            {
+                params &= ~INVERT_MASK;
+            }
+        }
+        effect = params & GRAYSCALE_MASK;
+        if (ImGui::Checkbox("Grayscale", &effect))
+        {
+            if (effect)
+            {
+                params |= GRAYSCALE_MASK;
+            }
+            else
+            {
+                params &= ~GRAYSCALE_MASK;
+            }
+        }
+        effect = params & COLOR_TINT_MASK;
+        if (ImGui::Checkbox("Color Tint", &effect))
+        {
+            if (effect)
+            {
+                params |= COLOR_TINT_MASK;
+            }
+            else
+            {
+                params &= ~COLOR_TINT_MASK;
+            }
+        }
+        if (effect)
+        {
+            ImGui::ColorEdit4("Color", glm::value_ptr(tintColor));
+        }
+        effect = params & GRAIN_MASK;
+        if (ImGui::Checkbox("Grain", &effect))
+        {
+            if (effect)
+            {
+                params |= GRAIN_MASK;
+            }
+            else
+            {
+                params &= ~GRAIN_MASK;
+            }
+        }
+        effect = params & SCANLINE_MASK;
+        if (ImGui::Checkbox("Scanline", &effect))
+        {
+            if (effect)
+            {
+                params |= SCANLINE_MASK;
+            }
+            else
+            {
+                params &= ~SCANLINE_MASK;
+            }
+        }
+        effect = params & MIRROR_MASK;
+        if (ImGui::Checkbox("Mirror", &effect))
+        {
+            if (effect)
+            {
+                params |= MIRROR_MASK;
+            }
+            else
+            {
+                params &= ~MIRROR_MASK;
+            }
+        }
+        ImGui::End();
+
+        auto program = GET_RESOURCE(Program, "shaders/post_process.prog");
+        if(program)
+        {
+            program->Use();
+            program->SetUniform("blend", blend);
+            program->SetUniform("params", params);
+            program->SetUniform("tintColor", tintColor);
+            program->SetUniform("height", (float)ENGINE.GetSystem<Renderer>()->GetHeight());
+        }
         /*
         glm::mat4 view = glm::lookAt(glm::vec3({ 0, 0, 3 }), glm::vec3({ 0, 0, 0 }), glm::vec3({ 0, 1, 0 }));
         material->GetProgram()->SetUniform("view", view);
@@ -136,7 +226,7 @@ namespace nc
 
     void World06::Draw(Renderer& renderer)
     {
-        m_scene->GetActorByName("actor2")->active = false;
+        m_scene->GetActorByName("cube")->active = false;
         auto framebuffer = GET_RESOURCE(Framebuffer, "fb");
         renderer.SetViewport(framebuffer->GetSize().x, framebuffer->GetSize().y);
         framebuffer->Bind();
@@ -152,11 +242,10 @@ namespace nc
 
         framebuffer->Unbind();
         renderer.ResetViewport();
-        m_scene->GetActorByName("actor2")->active = true;
+        m_scene->GetActorByName("cube")->active = true;
 
         renderer.BeginFrame();
         m_scene->Draw(renderer);
-
         ENGINE.GetSystem<Gui>()->Draw();
 
         // post-render

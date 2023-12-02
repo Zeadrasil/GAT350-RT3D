@@ -15,6 +15,8 @@ layout(binding = 0) uniform sampler2D tex;
 void main()
 {
 	vec4 texColor = texture(tex, texCoord).rgba;
+	float depth = texColor.r;
+
 	if(texColor.a < 0.8) discard;
 	ocolor = texColor * vec4(material.albedo, 1);
 }

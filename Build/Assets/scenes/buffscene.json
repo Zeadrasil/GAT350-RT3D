@@ -56,13 +56,13 @@
 			"components": [
 				{
 					"type": "ModelComponent",
-					"modelName": "models/cube.obj",
-					"materialName": "materials/buff_shrek.mtrl",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/post_process.mtrl",
 					"enableDepth": true
 				},
 				{
 					"type": "RotateComponent",
-					"rotation": [ 10, 0, 0 ]
+					"rotation": [ 0, 0, 0 ]
 				}
 			]
 		},

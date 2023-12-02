@@ -14,16 +14,30 @@ namespace nc
 	{
 	}
 
-	void LightComponent::SetProgram(const res_t<Program> program, const std::string& name)
+	void LightComponent::SetProgram(const res_t<Program> program, const std::string& name, glm::mat4 view)
 	{
+		glm::vec3 position = glm::vec3(view * glm::vec4(m_owner->transform.position, 1));
+		glm::vec3 direction = glm::vec3(view * glm::vec4(m_owner->transform.Forward(), 0));
+
 		program->SetUniform(name + ".type", type);
-		program->SetUniform(name + ".position", m_owner->transform.position);
-		program->SetUniform(name + ".direction", m_owner->transform.Forward());
-		program->SetUniform(name + ".diffuse", color);
+		program->SetUniform(name + ".position", position);
+		program->SetUniform(name + ".direction", direction);
+		program->SetUniform(name + ".albedo", color);
 		program->SetUniform(name + ".intensity", intensity);
 		program->SetUniform(name + ".range", range);
 		program->SetUniform(name + ".innerAngle", glm::radians(innerAngle));
 		program->SetUniform(name + ".outerAngle", glm::radians(outerAngle));
+
+		if (castShadow)
+		{
+			glm::mat4 mShadowBias = glm::mat4(
+				glm::vec4(0.5f, 0.0f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+				glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+			program->SetUniform("shadowVP", mShadowBias * getShadowMatrix());
+			program->SetUniform("shadowBias", shadowBias);
+		}
 	}
 
 	void LightComponent::ProcessGui()
@@ -41,9 +55,22 @@ namespace nc
 
 		ImGui::ColorEdit3("Color", glm::value_ptr(color));
 		ImGui::DragFloat("Intensity", &intensity, 0.1f, 0, 10);
-		if (type != Directional) ImGui::DragFloat("Range", &range, 0.1f, 0.1f, 50);
+		if (type != Directional) ImGui::DragFloat("Range", &range, 0.1f, 0.1f, 500);
+		ImGui::Checkbox("Cast Shadow", &castShadow);
+		if (castShadow)
+		{
+			ImGui::DragFloat("Shadow Size", &shadowSize, 0.1f, 1, 60);
+			ImGui::DragFloat("Shadow Bias", &shadowBias, 0.001f, 0, 0.5f);
+		}
+	}
+
+	glm::mat4 LightComponent::getShadowMatrix()
+	{
+		glm::mat4 projection = glm::ortho(-shadowSize * 0.5f, shadowSize * 0.5f, -shadowSize * 0.5f, shadowSize * 0.5f, 0.1f, 50.0f);
+		glm::mat4 view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), glm::vec3(0, 1, 0));
 
 
+		return projection * view;
 	}
 
 	void LightComponent::Read(const nc::json_t& value)
@@ -68,5 +95,6 @@ namespace nc
 		READ_DATA(value, range);
 		READ_DATA(value, innerAngle);
 		READ_DATA(value, outerAngle);
+		READ_DATA(value, castShadow);
 	}
 }

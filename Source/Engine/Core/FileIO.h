@@ -17,4 +17,5 @@ namespace nc
 	bool getFileSize(const std::filesystem::path& path, size_t& size);
 	// Reads the file as text into the buffer parameter, returns (true/false) if successful.
 	bool readFile(const std::filesystem::path& path, std::string& buffer);
+	std::string getRelativePath(const std::filesystem::path& path);
 }

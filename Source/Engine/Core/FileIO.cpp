@@ -59,4 +59,8 @@ namespace nc
 
 		return true;
 	}
+	std::string getRelativePath(const std::filesystem::path& path)
+	{
+		return std::filesystem::relative(path).string();
+	}
 }

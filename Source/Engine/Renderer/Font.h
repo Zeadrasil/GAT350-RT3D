@@ -18,6 +18,7 @@ namespace nc
 
 		friend class Text;
 
+		ResourceType type = FONT;
 	private:
 		_TTF_Font* m_ttfFont = nullptr;
 	};

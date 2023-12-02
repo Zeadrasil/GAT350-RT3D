@@ -26,16 +26,22 @@ namespace nc
 		T* GetActor();
 		template<typename T = Actor>
 		T* GetActorByName(const std::string& name);
+		template<typename T>
+		std::vector<T*> GetComponents();
 
 		void SetGame(World* game) { m_game = game; }
 
 		friend class Actor;
+		friend class Editor;
 
 		void ProcessGui();
+
+		void Remove(Actor* actor);
 
 		glm::vec3 ambientColor{ 0.2f };
 
 	private:
+		float deltaTime = 0;
 		World* m_game = nullptr;
 		std::list<std::unique_ptr<Actor>> m_actors;
 	};
@@ -65,6 +71,20 @@ namespace nc
 		}
 
 		return nullptr;
+	}
+
+	template<typename T>
+	inline std::vector<T*> Scene::GetComponents()
+	{
+		std::vector<T*> components;
+		for (auto& actor : m_actors)
+		{
+			if (!actor->active) continue;
+
+			auto component = actor->GetComponent<T>();
+			if (component)components.push_back(component);
+		}
+		return components;
 	}
 
 
