@@ -23,6 +23,7 @@ namespace nc
         */
         m_editor = std::make_unique<Editor>();
         m_scene = std::make_unique<Scene>();
+        m_scene->Load("scenes/skyscene.json");
         m_scene->Load("scenes/scene_editor.json");
         m_scene->Load("scenes/shadowscene.json");
         m_scene->Initialize();
@@ -31,27 +32,39 @@ namespace nc
 
         //create depth texture
         auto texture = std::make_shared<Texture>();
-        texture->CreateDepthTexture(1024, 1024);
+        texture->CreateDepthTexture(32768, 32768);
         auto framebuffer = std::make_shared<Framebuffer>();
         framebuffer->CreateDepthbuffer(texture);
         ADD_RESOURCE("depth_texture", texture);
         ADD_RESOURCE("depth_buffer", framebuffer);
 
-        auto material = GET_RESOURCE(Material, "materials/sprite.mtrl");
+        auto material = GET_RESOURCE(Material, "materials/post_process.mtrl");
         if (material)
         {
             material->albedoTexture = texture;
         }
-        /*
-        for(int i = 0; i < 1; i++)
+        
+        for(int i = 0; i < 210; i+=7)
         {
-            auto actor = CREATE_CLASS_BASE(Actor, "actor3");
-            actor->name = createUnique("tree");
-            actor->transform.position = glm::vec3(randomf(-10, 10), randomf(-10, 10), randomf(-10, 10));
-            actor->transform.scale = glm::vec3(randomf(0.3, 10), randomf(0.3, 10), 1);
-            actor->Initialize();
-            m_scene->Add(std::move(actor));
-        }*/
+            for (int j = 0; j < 115; j+=7)
+            {
+                auto actor = CREATE_CLASS_BASE(Actor, "tree1");
+                int type = random(3);
+                if (type == 1)
+                {
+                    actor = CREATE_CLASS_BASE(Actor, "tree2");
+                }
+                else
+                {
+                    actor = CREATE_CLASS_BASE(Actor, "tree3");
+                }
+                actor->name = createUnique("tree");
+                actor->transform.position = glm::vec3(randomf(-2, 2) + i - 50, -1, randomf( -2, 2) - j - 120);
+                actor->transform.scale = glm::vec3(randomf(0.5, 2), randomf(0.5, 2), 1);
+                actor->Initialize();
+                m_scene->Add(std::move(actor));
+            }
+        }
         auto materials = GET_RESOURCES(Material);
         for (auto material : materials)
         {
@@ -134,6 +147,16 @@ namespace nc
             program->SetUniform("celBands", m_celBands);
             ImGui::End();
         }
+        material = GET_RESOURCE(Material, "materials/refraction.mtrl");
+        if (material)
+        {
+            ImGui::Begin("Refraction");
+            ImGui::DragFloat("IOR", &refraction, 0.01f, 1, 3);
+            auto program = material->GetProgram();
+            program->Use();
+            program->SetUniform("ior", refraction);
+            ImGui::End();
+        }
 
         m_editor->ProcessGui(m_scene.get());
 
@@ -148,6 +171,10 @@ namespace nc
 
     void World07::Draw(Renderer& renderer)
     {
+        /*auto skybox = m_scene->GetActorByName("skybox");
+        glDepthMask(false);
+        skybox->Draw(renderer);
+        glDepthMask(true);*/
         // PASS 1
         auto framebuffer = GET_RESOURCE(Framebuffer, "depth_buffer");
         renderer.SetViewport(framebuffer->GetSize().x, framebuffer->GetSize().y);
@@ -171,13 +198,14 @@ namespace nc
         {
             if (model->castShadow)
             {
+            	glCullFace(GL_FRONT);
                 program->SetUniform("model", model->m_owner->transform.GetMatrix());
                 model->m_model->Draw();
             }
         }
         framebuffer->Unbind();
         renderer.ResetViewport();
-        // PASS 2
+        // PASS 3
         renderer.BeginFrame();
         m_scene->Draw(renderer);
         ENGINE.GetSystem<Gui>()->Draw();

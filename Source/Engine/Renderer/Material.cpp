@@ -66,7 +66,7 @@ namespace nc
 		READ_NAME_DATA(document, "cubemap", textureName);
 		if (!textureName.empty())
 		{
-			params |= NORMAL_TEXTURE_MASK;
+			params |= CUBEMAP_TEXTURE_MASK;
 			std::vector<std::string> cubemaps;
 			READ_DATA(document, cubemaps);
 
@@ -86,23 +86,22 @@ namespace nc
 	void Material::Bind()
 	{
 		m_program->Use();
-		if (!cubemapTexture)
-		{
-			m_program->SetUniform("material.albedo", albedo);
-			m_program->SetUniform("material.params", params);
-			m_program->SetUniform("material.specular", specular);
-			m_program->SetUniform("material.emissive", emissive);
-			m_program->SetUniform("material.shininess", shininess);
-			m_program->SetUniform("material.tiling", tiling);
-			m_program->SetUniform("material.offset", offset);
-		}
+		m_program->SetUniform("material.albedo", albedo);
+		m_program->SetUniform("material.params", params);
+		m_program->SetUniform("material.specular", specular);
+		m_program->SetUniform("material.emissive", emissive);
+		m_program->SetUniform("material.shininess", shininess);
+		m_program->SetUniform("material.tiling", tiling);
+		m_program->SetUniform("material.offset", offset);
 		if (albedoTexture)
 		{
+			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture->SetActive(GL_TEXTURE0);
 			albedoTexture->Bind();
 		}
 		if (specularTexture)
 		{
+			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture->SetActive(GL_TEXTURE1);
 			specularTexture->Bind();
 		}
@@ -113,11 +112,13 @@ namespace nc
 		}
 		if (emissiveTexture)
 		{
+			params |= EMISSIVE_TEXTURE_MASK;
 			emissiveTexture->SetActive(GL_TEXTURE3);
 			emissiveTexture->Bind();
 		}
 		if (cubemapTexture)
 		{
+			params |= CUBEMAP_TEXTURE_MASK;
 			cubemapTexture->SetActive(GL_TEXTURE4);
 			cubemapTexture->Bind();
 		}

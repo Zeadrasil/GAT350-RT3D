@@ -38,7 +38,7 @@ namespace nc
 
 		void Remove(Actor* actor);
 
-		glm::vec3 ambientColor{ 0.2f };
+		glm::vec3 ambientColor{ 0.45f };
 
 	private:
 		float deltaTime = 0;

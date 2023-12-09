@@ -13,6 +13,7 @@
     1,
     1
   ],
+  "shininess": 100,
   "tiling": [ 1, 1 ],
   "offset": [ 0, 0 ]
 }

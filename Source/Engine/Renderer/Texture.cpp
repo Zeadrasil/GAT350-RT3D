@@ -47,8 +47,8 @@ namespace nc
 		glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 		stbi_image_free(data);
 
@@ -73,10 +73,8 @@ namespace nc
 
 
 		// set texture parameters
-		glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-
+		glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		return true;
 	}
@@ -97,9 +95,12 @@ namespace nc
 		glTexImage2D(m_target, 0, GL_DEPTH_COMPONENT24, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 		glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
+		glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+		GLfloat border[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		glTexParameterfv(m_target, GL_TEXTURE_BORDER_COLOR, border);
 
 		return true;
 	}

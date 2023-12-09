@@ -1,16 +1,20 @@
 #version 430
+
 #define POINT 0
 #define DIRECTIONAL 1
 #define SPOT 2
+
 #define ALBEDO_TEXTURE_MASK  (1 << 0)
 #define SPECULAR_TEXTURE_MASK  (1 << 1)
 #define NORMAL_TEXTURE_MASK  (1 << 2)
 #define EMISSIVE_TEXTURE_MASK  (1 << 3)
+#define CUBEMAP_TEXTURE_MASK (1 << 4)
+
 in layout(location = 0) vec3 position;
 in layout(location = 1) vec3 normal;
 in layout(location = 2) vec2 texCoord;
 in layout(location = 3) vec4 shadowCoord;
-
+in layout(location = 4) vec3 cubeCoord;
 
 out layout(location = 0) vec4 ocolor;
 
@@ -20,7 +24,7 @@ layout(binding = 1) uniform sampler2D specularTexture;
 layout(binding = 2) uniform sampler2D normalTexture;
 layout(binding = 3) uniform sampler2D emissiveTexture;
 layout(binding = 5) uniform sampler2D shadowTexture;
-
+layout(binding = 4) uniform samplerCube cubemap;
 uniform struct Light
 {
 	int type;
@@ -31,7 +35,7 @@ uniform struct Light
 	float range;
 	float innerAngle;
 	float outerAngle;
-}lights[3];
+}lights[6];
 
 uniform struct Material
 {
@@ -65,11 +69,11 @@ float celShading(float cIntensity, int celBands)
 	return celBands == 0 ? cIntensity : round(cIntensity * celBands) / (celBands * 1.0f);
 }
 
-void phong(in Light pLight, in vec3 pPosition, in vec3 pNormal, out vec3 pDiffuse, out vec3 pSpecular)
+void phong(in Light pLight, in vec3 pPosition, in vec3 pNormal, in float attenuation, out vec3 pDiffuse, out vec3 pSpecular)
 {
 	
 //gets the relative direction of the light based off of light position and model position
-	vec3 lightDir = (pLight.type == DIRECTIONAL) ? normalize(-pLight.direction) : normalize(pLight.position - pPosition.xyz);
+	vec3 lightDir = (pLight.type == DIRECTIONAL) ? normalize(-pLight.direction) : normalize(pLight.position - pPosition);
 	//if the light is a spot light and the angle is greater than the cutoff, then it sets intensity to 0, else it does nothing
 	float spotIntensity = 1;
 	if(pLight.type == SPOT)
@@ -82,7 +86,7 @@ void phong(in Light pLight, in vec3 pPosition, in vec3 pNormal, out vec3 pDiffus
 	float intensity = max(dot(lightDir, pNormal), 0) * spotIntensity;
 	
 	//applies the diffuse lighting to the diffuse material of the model and gets the resulting color
-	pDiffuse = pLight.albedo * celShading(intensity * pLight.intensity, celBands);
+	pDiffuse = pLight.albedo * celShading(intensity * pLight.intensity * attenuation, celBands);
 
 	pSpecular = vec3(0);
 	if(intensity > 0)
@@ -90,9 +94,9 @@ void phong(in Light pLight, in vec3 pPosition, in vec3 pNormal, out vec3 pDiffus
 	//gets the reflection of the light for specular calculations
 		vec3 viewDir = normalize(-pPosition);
 		vec3 h = normalize(viewDir + lightDir);
-		intensity = max(dot(h, pNormal), 0);
+		intensity = max(dot(h, pNormal), 0) * spotIntensity * attenuation;
 		intensity = pow(intensity, material.shininess);
-		pSpecular = vec3(celShading(intensity * spotIntensity, celBands));
+		pSpecular = vec3(celShading(intensity, celBands));
 	}
 }
 
@@ -107,11 +111,14 @@ void main()
 	vec4 albedoColor = bool(material.params & ALBEDO_TEXTURE_MASK) ? texture(albedoTexture, texCoord) : vec4(material.albedo, 1);
 	vec4 specularColor = bool(material.params & SPECULAR_TEXTURE_MASK) ? texture(specularTexture, texCoord) : vec4(material.specular, 1);
 	vec4 emissiveColor = bool(material.params & EMISSIVE_TEXTURE_MASK) ? texture(emissiveTexture, texCoord) : vec4(material.emissive, 1);
-
+	albedoColor = bool(material.params & CUBEMAP_TEXTURE_MASK) ? texture(cubemap, cubeCoord) : albedoColor;
 	ocolor = vec4(ambient, 1) * albedoColor + emissiveColor;
 	float shadow = calculateShadow(shadowCoord, shadowBias);
-
-	if(shadow > 0)
+	if(bool(CUBEMAP_TEXTURE_MASK & material.params))
+	{
+		ocolor = albedoColor;
+	}
+	else if(shadow > 0)
 	{
 		for(int i = 0; i < numLights; i++)
 		{
@@ -120,8 +127,8 @@ void main()
 
 			float attenuation = (lights[i].type == DIRECTIONAL) ? 1 : attenuation(lights[i].position, position, lights[i].range);
 
-			phong(lights[i], position, normal, diffuse, specular);
-			ocolor += (vec4(diffuse, 1) * albedoColor + vec4(specular, 1)) * specularColor * lights[i].intensity * attenuation;
+			phong(lights[i], position, normal, attenuation, diffuse, specular);
+			ocolor += ((vec4(diffuse, 1) * albedoColor) + (vec4(specular, 1) * specularColor)) * shadow;
 		}
 	}
 }

@@ -9,8 +9,8 @@ namespace nc
 	public:
 		enum ProjectionType
 		{
-			ORTHOGRAPHIC,
-			PERSPECTIVE
+			PERSPECTIVE,
+			ORTHOGRAPHIC
 		};
 
 		CLASS_DECLARATION(CameraComponent)

@@ -42,8 +42,9 @@ namespace nc
 					resource = GET_RESOURCE(T, resourceName);
 				}
 				ifd::FileDialog::Instance().Close();
+				return true;
 			}
-			return true;
-		}
-	};
+		return false;
+	}
+};
 }

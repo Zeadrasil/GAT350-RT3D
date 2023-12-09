@@ -13,8 +13,8 @@ out layout(location = 0) vec4 ocolor;
 
 uniform float blend = 1;
 uniform uint params = 0;
+uniform float height = 720;
 uniform vec4 tintColor = vec4(0);
-uniform float height = 100;
 layout(binding = 0) uniform sampler2D tex;
 
 vec4 invert(in vec4 color)
@@ -65,6 +65,6 @@ void main()
 		postProcess = scanline(postProcess);
 	}
 	//if(texColor.a < 0.8) discard;
-	ocolor = mix(baseColor, postProcess, blend);
+	ocolor = mix(baseColor, postProcess, blend) * height / height;
 }
 

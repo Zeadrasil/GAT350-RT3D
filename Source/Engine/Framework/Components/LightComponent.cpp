@@ -14,7 +14,7 @@ namespace nc
 	{
 	}
 
-	void LightComponent::SetProgram(const res_t<Program> program, const std::string& name, glm::mat4 view)
+	void LightComponent::SetProgram(const res_t<Program> program, const std::string& name, const glm::mat4& view)
 	{
 		glm::vec3 position = glm::vec3(view * glm::vec4(m_owner->transform.position, 1));
 		glm::vec3 direction = glm::vec3(view * glm::vec4(m_owner->transform.Forward(), 0));
@@ -59,14 +59,14 @@ namespace nc
 		ImGui::Checkbox("Cast Shadow", &castShadow);
 		if (castShadow)
 		{
-			ImGui::DragFloat("Shadow Size", &shadowSize, 0.1f, 1, 60);
+			ImGui::DragFloat("Shadow Size", &shadowSize, 0.1f, 1, 6000);
 			ImGui::DragFloat("Shadow Bias", &shadowBias, 0.001f, 0, 0.5f);
 		}
 	}
 
 	glm::mat4 LightComponent::getShadowMatrix()
 	{
-		glm::mat4 projection = glm::ortho(-shadowSize * 0.5f, shadowSize * 0.5f, -shadowSize * 0.5f, shadowSize * 0.5f, 0.1f, 50.0f);
+		glm::mat4 projection = glm::ortho(-shadowSize * 0.5f, shadowSize * 0.5f, shadowSize * 0.5f, -shadowSize * 0.5f, 0.1f, 50.0f);
 		glm::mat4 view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), glm::vec3(0, 1, 0));
 
 
@@ -96,5 +96,7 @@ namespace nc
 		READ_DATA(value, innerAngle);
 		READ_DATA(value, outerAngle);
 		READ_DATA(value, castShadow);
+		READ_DATA(value, shadowSize);
+		READ_DATA(value, shadowBias);
 	}
 }

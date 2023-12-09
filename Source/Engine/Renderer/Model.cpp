@@ -15,7 +15,7 @@ namespace nc
 		return Load(filename);
 	}
 
-	bool Model::Load(const std::string& filename, const glm::vec3& translate, const glm::vec3&	 rotation, const::glm::vec3 scale)
+	bool Model::Load(const std::string& filename, const glm::vec3& translate, const glm::vec3&	 rotation, const glm::vec3& scale)
 	{
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
@@ -66,7 +66,7 @@ namespace nc
 			vertex_t vertex;
 
 			vertex.position = transform * glm::vec4{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z , 1};
-			vertex.normal = glm::normalize(transform * glm::vec4{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z, 0 });
+			vertex.normal = glm::normalize(transform * glm::vec4{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z, 1 });
 
 			if (mesh->mTangents)
 			{

@@ -27,7 +27,13 @@ namespace nc
 		view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), m_owner->transform.Up());
 		// set projection matrix with glm::perspective function (fov is in degrees, convert to radians)
 		// projection = glm::perspective(<parameters>);
+		if (projectionType == PERSPECTIVE) 
+		{
 		projection = glm::perspective(glm::radians(fov), aspect, near, far);
+		}
+		else {
+			projection = glm::ortho(-size * aspect * 0.5f, size * aspect * 0.5f, -size * aspect * 0.5f, size * aspect * 0.5f, near, far);
+		}
 
 	}
 
@@ -74,6 +80,9 @@ namespace nc
 		ImGui::DragFloat("Aspect Ratio", &aspect, 0.1f);
 		ImGui::DragFloat("Near Cutoff", &near, 0.1f);
 		ImGui::DragFloat("Far Cutoff", &far, 0.1f);
+		if (projectionType == ORTHOGRAPHIC){
+			ImGui::DragFloat("Size", &size, 0.1f);
+		}
 	}
 
 	void CameraComponent::Read(const json_t& value)

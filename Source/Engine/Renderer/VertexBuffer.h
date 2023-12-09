@@ -22,7 +22,7 @@ namespace nc
 		ResourceType type = VERTEX_BUFFER;
 
 	protected:
-		GLuint m_vao;			// vertex array object
+		GLuint m_vao = 0;			// vertex array object
 
 		GLuint m_vbo = 0;			// vertex buffer object
 		GLuint m_vertexCount = 0;	// number of vertices in vertex buffer
